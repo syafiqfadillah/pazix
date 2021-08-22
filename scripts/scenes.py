@@ -82,11 +82,6 @@ class Game:
                 self.unlock.append(self.lock[key][0])
                 del self.lock[key]
 
-            try:
-                print(key, [value.unlock(self.unlock) for value in self.lock[key][1]])
-            except Exception:
-                pass
-
     def _update(self):
         self.camera.focus(self.unlock[self.index])
 
