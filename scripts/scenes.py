@@ -1,4 +1,5 @@
 import sys
+import json
 
 import pygame
 
@@ -37,12 +38,12 @@ class Game:
 
     def _reload_level(self, level):
         path = f"../level/level{level}.json"
-        load = u.load_json(path)
+        load = self.load_json(path)
 
         self.camera = camera.Camera(-600, 600)
 
         tiles_path = "../assets/floor"
-        map_parse = u.json_to_charlist(load, "tilemap")
+        map_parse = self.json_to_charlist(load, "tilemap")
         self.map_level = map.Tilemap(map_parse, tiles_path)
 
         puzzle_path = "../assets/puzzles"
