@@ -13,12 +13,5 @@ def load_image(path, width, height):
 
     return trans
 
-def load_json(path):
-    with open(path, "r") as f:
-        file = json.load(f)
-        return file
-
-def json_to_charlist(file, key):
-    return [char.split(",") for row in file[key] for char in row]
 
 

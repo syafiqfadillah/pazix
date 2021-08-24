@@ -25,6 +25,16 @@ class Game:
         self.level = 1  
         self.game = self._reload_level(self.level)
 
+    @staticmethod
+    def load_json(path):
+        with open(path, "r") as f:
+            file = json.load(f)
+            return file
+
+    @staticmethod
+    def json_to_charlist(file, key):
+        return [char.split(",") for row in file[key] for char in row]
+
     def _reload_level(self, level):
         path = f"../level/level{level}.json"
         load = u.load_json(path)
