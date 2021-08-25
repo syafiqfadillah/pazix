@@ -23,25 +23,30 @@ class GameObject:
 class Puzzle(GameObject):
     def __init__(self, image, position):
         self.anim = a.Animations()
-        self.anim.load_animations("ready", image, 6)
+        self.anim.load_animations("ready", f"{image}/ready", 1, loop=False)
+        self.anim.load_animations("rotate", f"{image}/rotate", 15, loop=False)
         self.anim.set_state("ready")
 
         super().__init__(self.anim.get_frame(), position)
 
-    def move(self, up=False, down=False, left=False, right=False):
-        self.movement = [0, 0]
+    def rotate(self):
+        self.anim.set_state("rotate")
 
-        if up:
-            self.movement[1] = -2
-        elif down:
-            self.movement[1] = 2
-        elif left:
-            self.movement[0] = -2
-        elif right:
-            self.movement[0] = 2
-        
-        self.rect.x += self.movement[0]
-        self.rect.y += self.movement[1]
+    def move(self, up=False, down=False, left=False, right=False):
+        if self.anim.get_state() == "rotate" and self.anim.end_frame():
+            self.movement = [0, 0]
+
+            if up:
+                self.movement[1] = -2
+            elif down:
+                self.movement[1] = 2
+            elif left:
+                self.movement[0] = -2
+            elif right:
+                self.movement[0] = 2
+            
+            self.rect.x += self.movement[0]
+            self.rect.y += self.movement[1]
         
     def collision(self, rects):
         for rect in rects:
@@ -64,6 +69,7 @@ class Padlock(GameObject):
         super().__init__(u.load_image(image, 80, 80), position)
 
     def unlock(self, puzzles):
+        # so that every puzzle in the unlock list can unlock the padlock
         puzzles_x = [puzzle.rect.x for puzzle in puzzles]
         puzzles_y = [puzzle.rect.y for puzzle in puzzles]
         return (self.rect.x in puzzles_x and self.rect.y in puzzles_y)

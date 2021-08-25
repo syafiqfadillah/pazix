@@ -93,6 +93,9 @@ class Game:
                 self.unlock.append(self.lock[key][0])
                 del self.lock[key]
 
+        for puzzle in self.unlock:
+            puzzle.rotate()
+
     def _update(self):
         self.camera.focus(self.unlock[self.index])
 

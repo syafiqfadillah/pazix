@@ -37,6 +37,9 @@ class Animations:
 
     def set_state(self, new_state):
         self.state = new_state
+
+    def get_state(self):
+        return self.state
     
     def end_frame(self):
         return self.frame >= len(self.animations_db[self.state])
