@@ -1,7 +1,7 @@
 import pygame
 
-import animations as a
-import utility as u
+from . import animations as a
+from . import helper_func as hf
 
 
 class GameObject:
@@ -66,7 +66,7 @@ class Puzzle(GameObject):
 
 class Padlock(GameObject):
     def __init__(self, image, position):
-        super().__init__(u.load_image(image, 80, 80), position)
+        super().__init__(hf.load_image(image, 80, 80), position)
 
     def unlock(self, puzzles):
         # so that every puzzle in the unlock list can unlock the padlock

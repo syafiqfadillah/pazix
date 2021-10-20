@@ -1,8 +1,6 @@
-import json
-
 import pygame
 
-import utility as u
+from . import helper_func as hf
 
 
 class Tilemap:
@@ -13,17 +11,13 @@ class Tilemap:
         self.images = self.load_images(images)
         self.blit = {}
 
-    @staticmethod
-    def generate_key(images):
-        return "".join(char for char in images if char.isdecimal())
-
     def load_images(self, path):
         data = {}
-        images = u.search_png(path)
+        images = hf.search_png(path)
         for image in images:
-            key = self.generate_key(image)
+            key = hf.generate_key(image)
 
-            data[key] = u.load_image(f"{path}/{image}", self.tile_width, self.tile_height)
+            data[key] = hf.load_image(f"{path}/{image}", self.tile_width, self.tile_height)
 
         return data
     

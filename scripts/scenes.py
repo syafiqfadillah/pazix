@@ -1,13 +1,12 @@
 import sys
-import json
 
 import pygame
 
-import map
-import camera
+from . import map
+from . import camera
 
-import utility as u
-import game_object as go
+from . import helper_func as hf
+from . import game_object as go
 
 
 pygame.init()
@@ -26,28 +25,18 @@ class Game:
         self.level = 1  
         self.game = self._reload_level(self.level)
 
-    @staticmethod
-    def load_json(path):
-        with open(path, "r") as f:
-            file = json.load(f)
-            return file
-
-    @staticmethod
-    def json_to_charlist(file, key):
-        return [char.split(",") for row in file[key] for char in row]
-
     def _reload_level(self, level):
-        path = f"../level/level{level}.json"
-        load = self.load_json(path)
+        path = f"level/level{level}.json"
+        load = hf.load_json(path)
 
         self.camera = camera.Camera(-600, 600)
 
-        tiles_path = "../assets/floor"
-        map_parse = self.json_to_charlist(load, "tilemap")
+        tiles_path = "assets/floor"
+        map_parse = hf.json_to_charlist(load, "tilemap")
         self.map_level = map.Tilemap(map_parse, tiles_path)
 
-        puzzle_path = "../assets/puzzles"
-        padlock_path = "../assets/padlock/padlock_0.png"
+        puzzle_path = "assets/puzzles"
+        padlock_path = "assets/padlock/padlock_0.png"
 
         # key(str) = [value(puzzle), [value(padlock)]]
         self.lock = {}

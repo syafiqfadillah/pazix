@@ -1,4 +1,4 @@
-import utility as u
+from . import helper_func as hf
 
 
 class Animations:
@@ -7,20 +7,8 @@ class Animations:
         self.animations_loop = []
         self.animations_db = {}
 
-    @staticmethod
-    def load_images(path):
-        images = []
-        
-        images_dir = u.search_png(path)
-        for image in images_dir:
-            load = u.load_image(f"{path}/{image}", 80, 80)
-
-            images.append(load)
-
-        return images
-
     def load_animations(self, name, images, frame_durations, loop=True):
-        images = self.load_images(images)
+        images = hf.load_images(images)
 
         if loop:
             self.animations_loop.append(name)
